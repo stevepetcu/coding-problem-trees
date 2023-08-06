@@ -138,4 +138,42 @@ class BinaryTreeTest {
             },
         )
     }
+
+    @Test
+    fun find_willReturnTheFirstNode_givenValueWasFound() {
+        assertAll(
+            Executable {
+                val node = BinaryTree(arrayOf(1)).find(1)
+                assertTrue(node.isPresent)
+                assertEquals(1, node.get().value)
+                assertTrue(node.get().parent.isEmpty)
+                assertTrue(node.get().leftChild.isEmpty)
+                assertTrue(node.get().rightChild.isEmpty)
+            },
+            Executable {
+                val node = BinaryTree(arrayOf(1, 2)).find(2)
+                assertTrue(node.isPresent)
+                assertEquals(2, node.get().value)
+                assertEquals(1, node.get().parent.get().value)
+            },
+            Executable {
+                val node = BinaryTree(arrayOf(0, 1, 3, 3, 4, 4)).find(4)
+                assertTrue(node.isPresent)
+                assertEquals(4, node.get().value)
+                assertEquals(1, node.get().parent.get().value)
+            },
+            Executable {
+                val node = BinaryTree(arrayOf(0, 1, 3, 6, 5, 4)).find(4)
+                assertTrue(node.isPresent)
+                assertEquals(4, node.get().value)
+                assertEquals(3, node.get().parent.get().value)
+            },
+            Executable {
+                val node = BinaryTree(arrayOf(1, 1, 1, 1, 1, 4)).find(4)
+                assertTrue(node.isPresent)
+                assertEquals(4, node.get().value)
+                assertEquals(1, node.get().parent.get().value)
+            },
+        )
+    }
 }
