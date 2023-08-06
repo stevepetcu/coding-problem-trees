@@ -39,4 +39,20 @@ class BinaryTree<T>(values: Array<T>) {
     fun getRoot(): TreeNode<T> {
         return root
     }
+
+    fun getHeight(): UInt {
+        return getHeightFrom()
+    }
+
+    private fun getHeightFrom(node: TreeNode<T> = root, level: UInt = 1u): UInt {
+        // Since this tree always assigns the left child nodes before assigning a right child node,
+        // if the leftChild.isEmpty, we know that there's no rightChild for that root node. That
+        // also means that the left branch will always be the longest branch, so we can just do
+        // a depth first traversal of the left branch.
+        if (node.leftChild.isEmpty) {
+            return level
+        }
+
+        return getHeightFrom(node.leftChild.get(), level + 1u)
+    }
 }

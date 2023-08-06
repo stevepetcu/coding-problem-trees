@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.function.Executable
 
 class BinaryTreeTest {
     @Test
@@ -114,5 +115,27 @@ class BinaryTreeTest {
 
         // 6.right == empty
         assertTrue(root.rightChild.get().rightChild.get().rightChild.isEmpty)
+    }
+
+    @Test
+    fun getHeight_willReturnTheHeightOfTheTree() {
+        assertAll(
+            Executable { assertEquals(1u, BinaryTree(arrayOf(1)).getHeight()) },
+            Executable { assertEquals(2u, BinaryTree(arrayOf(1, 2, 3)).getHeight()) },
+            Executable { assertEquals(3u, BinaryTree(arrayOf(0, 1, 2, 3, 4, 5)).getHeight()) },
+            Executable { assertEquals(4u, BinaryTree(arrayOf(0, 1, 2, 3, 4, 5, 6, 7)).getHeight()) },
+            Executable {
+                assertEquals(
+                    4u,
+                    BinaryTree(arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)).getHeight()
+                )
+            },
+            Executable {
+                assertEquals(
+                    5u,
+                    BinaryTree(arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)).getHeight()
+                )
+            },
+        )
     }
 }
